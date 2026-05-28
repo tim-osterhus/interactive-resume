@@ -84,6 +84,8 @@ def create_app() -> Flask:
             return jsonify({"error": {"code": "invalid_model_profile", "message": "Unknown model profile."}}), 400
         if mode is not None and mode not in ALLOWED_MODES:
             return jsonify({"error": {"code": "invalid_mode", "message": "Unknown mode."}}), 400
+        if limiter.at_capacity(session_id, settings.max_active_sessions):
+            return jsonify({"error": {"code": "at_capacity", "message": "Too many active sessions."}}), 429
         if not limiter.check(session_id):
             return jsonify({"error": {"code": "rate_limited", "message": "Please wait before sending another message."}}), 429
 

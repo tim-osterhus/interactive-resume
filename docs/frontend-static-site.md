@@ -69,3 +69,14 @@ dist/
 
 The build should copy HTML, CSS, JavaScript, and public-safe generated evidence
 summaries. Generated private corpus files should never be copied to `dist/`.
+
+## Tests
+
+Minimum frontend checks:
+
+- Template copy stays generic before personalization.
+- Answer rendering uses DOM APIs such as `textContent` and `createTextNode`,
+  not arbitrary HTML insertion from model output.
+- Citation chips are parsed from `[S1]` text without losing surrounding text.
+- Source drawer content is rendered as text.
+- The build writes the expected static files to `dist/`.

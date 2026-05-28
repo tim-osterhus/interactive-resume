@@ -141,8 +141,12 @@ Minimum tests:
 - `/health` shape.
 - `/chat` rejects invalid role/mode/profile.
 - `/chat` rejects overlong messages.
+- `/chat` enforces cooldown and active-session limits.
 - Citation IDs in answers map to returned sources.
 - Source frontmatter is not leaked as public body text.
 - CORS allows expected origins and rejects unknown origins.
 - Role values route to expected prompt addendums.
+- Retrieval returns ranked public source objects without leaking local paths.
+- Generation adapters send the intended model, prompt, options, and timeout.
+- Eval scoring catches citation-contract and missing-evidence failures.
 - Job-fit rejects overlong job descriptions and admits missing evidence.

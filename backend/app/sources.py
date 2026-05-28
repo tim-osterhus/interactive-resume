@@ -37,7 +37,9 @@ def excerpt(body: str, limit: int = 520) -> str:
     compact = re.sub(r"\s+", " ", body).strip()
     if len(compact) <= limit:
         return compact
-    return compact[: limit - 1].rstrip() + "..."
+    if limit <= 3:
+        return "." * max(limit, 0)
+    return compact[: limit - 3].rstrip() + "..."
 
 
 def parse_markdown_file(path: Path, corpus_root: Path) -> dict:

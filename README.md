@@ -26,7 +26,7 @@ Fine-tuning on a GPU with less than 8 GB VRAM should be treated as experimental.
 
 ## Status
 
-`v0.1.0` is a runnable template baseline, not a finished hosted product.
+`v0.1.1` is a runnable template baseline, not a finished hosted product.
 
 Current starter stack:
 
@@ -37,6 +37,9 @@ Current starter stack:
 - Smoke eval harness under `examples/evals/`.
 - Deterministic placeholder generation for first-run testing.
 - Ollama adapter and environment template for local model generation.
+- Backend and frontend test suites for the public API contract, prompt routing,
+  retrieval behavior, source parsing, generation adapters, citation rendering,
+  DOM-safe output handling, and static build output.
 - Agent-oriented implementation docs, templates, and optional skills.
 
 The starter retrieval path is intentionally simple keyword retrieval. Replace it
@@ -76,6 +79,10 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1
 ```
 
 Use `-SkipInstall` after dependencies are already installed.
+
+The verifier runs the example ingest, backend tests, smoke eval, frontend tests,
+static build, and public hygiene scan. It is the command to run before sharing a
+personalized fork.
 
 ## What This Builds
 
@@ -120,6 +127,18 @@ more inspectable than a resume PDF uploaded into a generic chatbot wrapper.
 | `docs/` | Implementation, corpus, eval, deployment, fine-tuning, model-selection, and job-fit guides. |
 | `.codex/skills/` | Optional repo-local skills for agents that support skill discovery. |
 | `scripts/` | PowerShell and Bash verification scripts. |
+
+## Quality Bar
+
+This template is intentionally small, but it should not be treated as a toy
+script. The backend tests cover the health and chat API contract, request
+validation, CORS behavior, cooldown and active-session limits, prompt routing,
+retrieval ranking, source sanitization, generation adapter payloads, and eval
+scoring. The frontend tests cover static template hygiene, citation parsing,
+DOM-safe answer/source rendering, and the build output.
+
+Before publishing a fork, run the verifier and add project-specific evals that
+match the real corpus and claims.
 
 ## Personalization Flow
 

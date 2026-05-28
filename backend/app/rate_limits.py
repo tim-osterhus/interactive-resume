@@ -31,3 +31,10 @@ class CooldownLimiter:
         now = time.time()
         self._prune(now)
         return len(self.last_seen)
+
+    def at_capacity(self, session_id: str, max_active_sessions: int) -> bool:
+        if max_active_sessions <= 0:
+            return False
+        now = time.time()
+        self._prune(now)
+        return session_id not in self.last_seen and len(self.last_seen) >= max_active_sessions

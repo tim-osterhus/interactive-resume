@@ -14,8 +14,6 @@ def install_cors(app, origins: str) -> None:
         elif request_origin in allowed:
             response.headers["Access-Control-Allow-Origin"] = request_origin
             response.headers["Vary"] = "Origin"
-        elif allowed:
-            response.headers["Access-Control-Allow-Origin"] = allowed[0]
         response.headers["Access-Control-Allow-Headers"] = "Content-Type"
         response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
         return response
