@@ -93,6 +93,21 @@ home server, workstation, rented GPU box, or private cloud machine. Raw source
 documents, model files, generated indexes, eval outputs, and secrets stay
 private.
 
+## Why This Exists (Note from Tim)
+
+I originally built this for myself so I could send recruiters something more
+useful than a plain resume link. The live version is a queryable resume, a
+source-backed portfolio, and a proof artifact: it runs on my own domain, uses a
+private local backend, cites the documents behind its claims, and demonstrates
+what can be built with old consumer hardware, no dedicated project budget beyond
+tools I already had, and a lot of careful system design.
+
+This template turns that pattern into something other people can adapt. A
+generated version will not carry the same proof value as the original live
+system unless the owner actually curates evidence, runs the backend, evaluates
+answers, and deploys it responsibly. But even a modest implementation is still
+more inspectable than a resume PDF uploaded into a generic chatbot wrapper.
+
 ## What Is Included
 
 | Path | Purpose |
