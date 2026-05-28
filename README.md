@@ -2,10 +2,11 @@
 
 A runnable starter for building a public, source-grounded interactive resume.
 
-Use this repo when you want a static resume site backed by a private evidence
-corpus, a small local API, cited answers, and a path toward local RAG,
-fine-tuning, model evaluation, and job-fit analysis. The template ships with a
-fictional sample corpus so you can run the stack before adding personal data.
+If you want a static resume site backed by a private evidence corpus, a small 
+local API, cited answers, and a path toward local RAG, fine-tuning, model 
+evaluation, and job-fit analysis, this repo is a great place to begin. The 
+template ships with a fictional sample corpus so you can run the stack before 
+adding personal data.
 
 ## Tested Hardware Floor
 
