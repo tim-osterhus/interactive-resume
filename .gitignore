@@ -1,0 +1,49 @@
+# Local/private evidence
+/raw-corpus/
+/private-corpus/
+
+# Generated artifacts
+generated/
+data/index/
+data/evals/runs/
+data/local-training/
+backend/data/index/
+backend/data/evals/runs/
+backend/data/local-training/
+models/
+checkpoints/
+adapters/
+*.gguf
+*.safetensors
+*.sqlite
+*.sqlite3
+*.db
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.token
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node/static-site
+node_modules/
+dist/
+frontend/dist/
+.wrangler/
+.vite/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

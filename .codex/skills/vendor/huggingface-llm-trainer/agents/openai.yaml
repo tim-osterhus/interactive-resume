@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hugging Face LLM Trainer"
+  short_description: "Fine-tune LLMs with Hugging Face TRL Jobs."
+  default_prompt: "Help me prepare and run a fine-tuning workflow with Hugging Face tooling."

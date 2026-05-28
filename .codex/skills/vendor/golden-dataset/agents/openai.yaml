@@ -1,0 +1,4 @@
+interface:
+  display_name: "Golden Dataset"
+  short_description: "Curate, validate, version, and regression-test golden datasets."
+  default_prompt: "Help me create and validate a high-quality fine-tuning or eval dataset."

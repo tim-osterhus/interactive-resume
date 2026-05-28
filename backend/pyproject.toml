@@ -1,0 +1,18 @@
+[project]
+name = "interactive-resume-backend"
+version = "0.1.0"
+description = "Minimal evidence-backed interactive resume API starter."
+requires-python = ">=3.10"
+dependencies = [
+  "flask>=3.0.0",
+  "requests>=2.31.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

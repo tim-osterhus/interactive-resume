@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fine-Tuning Pipeline"
+  short_description: "Plan LoRA, SFT, KTO, GRPO, and experiment-loop workflows."
+  default_prompt: "Help me design and sanity-check a narrow-use-case fine-tuning experiment."

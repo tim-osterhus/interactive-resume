@@ -1,0 +1,11 @@
+{
+  "name": "interactive-resume-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "test": "node scripts/test.mjs",
+    "build": "node scripts/build.mjs"
+  }
+}

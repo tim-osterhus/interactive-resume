@@ -1,0 +1,3 @@
+display_name: RAG Corpus Hygiene
+short_description: Lint local RAG corpora before ingestion
+default_prompt: Lint the local RAG corpus and recommend focused cleanup before ingestion.

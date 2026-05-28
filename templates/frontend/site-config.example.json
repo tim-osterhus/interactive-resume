@@ -1,0 +1,54 @@
+{
+  "ownerDisplayName": "Your Name",
+  "headline": "Public, evidence-backed interactive resume",
+  "apiBaseUrl": "https://evidence-api.example.com",
+  "defaultRole": "recruiter",
+  "roles": [
+    {
+      "id": "recruiter",
+      "label": "Recruiter"
+    },
+    {
+      "id": "investor",
+      "label": "Investor"
+    },
+    {
+      "id": "customer",
+      "label": "Customer"
+    },
+    {
+      "id": "builder",
+      "label": "Builder"
+    },
+    {
+      "id": "friend",
+      "label": "Friend"
+    }
+  ],
+  "modelProfiles": [
+    {
+      "id": "fast",
+      "label": "Fast"
+    },
+    {
+      "id": "thinking",
+      "label": "Deeper"
+    }
+  ],
+  "features": {
+    "chat": true,
+    "jobFit": false,
+    "answerDepthToggle": true,
+    "sourceDrawer": true
+  },
+  "contactLinks": [
+    {
+      "label": "Email",
+      "href": "mailto:name@example.com"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/example"
+    }
+  ]
+}

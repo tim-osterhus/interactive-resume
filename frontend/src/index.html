@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive Resume</title>
+    <link rel="stylesheet" href="./assets/site.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Evidence-backed interactive resume</p>
+          <h1 id="page-title">Your Name</h1>
+          <p class="headline">A static public resume with cited answers from a private evidence corpus.</p>
+        </div>
+        <div id="healthBadge" class="health offline">Checking API</div>
+      </section>
+
+      <section class="console" aria-label="Resume question console">
+        <div class="controls">
+          <label>
+            Role
+            <select id="roleSelect">
+              <option value="recruiter">Recruiter</option>
+              <option value="investor">Investor</option>
+              <option value="customer">Customer</option>
+              <option value="builder">Builder</option>
+              <option value="friend">Friend</option>
+            </select>
+          </label>
+          <label>
+            Depth
+            <select id="profileSelect">
+              <option value="fast">Fast</option>
+              <option value="thinking">Deeper</option>
+            </select>
+          </label>
+        </div>
+
+        <form id="questionForm" class="question-form">
+          <label for="questionInput">Question</label>
+          <textarea id="questionInput" rows="4" maxlength="2000" placeholder="What has this person built?"></textarea>
+          <button type="submit">Ask</button>
+        </form>
+
+        <article id="answerPanel" class="answer-panel" aria-live="polite">
+          <p class="muted">Ask a question to see a cited answer. If the API is offline, the static proof notes below remain available.</p>
+        </article>
+      </section>
+
+      <section class="proof" aria-labelledby="proof-title">
+        <h2 id="proof-title">Static Proof Notes</h2>
+        <p>This starter includes a fictional sample corpus. Replace these notes with public-safe project summaries, links, and limitations for the real owner.</p>
+        <ul>
+          <li>Keep the raw corpus private.</li>
+          <li>Publish only reviewed summaries and public links.</li>
+          <li>Make unsupported claims visibly bounded.</li>
+        </ul>
+      </section>
+    </main>
+
+    <dialog id="sourceDrawer" class="source-drawer">
+      <button id="closeDrawer" class="close-button" aria-label="Close source">×</button>
+      <h2 id="drawerTitle">Source</h2>
+      <p id="drawerUrl" class="source-url"></p>
+      <pre id="drawerBody"></pre>
+    </dialog>
+
+    <script type="module" src="./assets/site.js"></script>
+  </body>
+</html>

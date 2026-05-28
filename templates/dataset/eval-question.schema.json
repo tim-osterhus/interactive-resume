@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interactive Resume Eval Question",
+  "type": "object",
+  "required": ["id", "role", "question"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role": {
+      "type": "string",
+      "enum": ["recruiter", "investor", "customer", "builder", "friend"]
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["built", "proof", "limits"]
+    },
+    "model_profile": {
+      "type": "string",
+      "enum": ["fast", "thinking"]
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_source_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_phrases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_phrases": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "must_admit_missing_evidence": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}
