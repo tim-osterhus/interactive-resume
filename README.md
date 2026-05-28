@@ -1,48 +1,51 @@
-# Interactive Resume Evidence Console Template
+# Interactive Resume Template
 
-This repository is a portable template for building a public interactive resume
-backed by private, source-grounded local RAG.
+A runnable starter for building a public, source-grounded interactive resume.
 
-The goal is not to create a chatbot that improvises a resume. The goal is to
-create an evidence console: a public static website where visitors can ask
-questions and receive concise, cited answers grounded in artifacts the owner
-has curated.
+Use this repo when you want a static resume site backed by a private evidence
+corpus, a small local API, cited answers, and a path toward local RAG,
+fine-tuning, model evaluation, and job-fit analysis. The template ships with a
+fictional sample corpus so you can run the stack before adding personal data.
 
-## What You Build
+## Tested Hardware Floor
 
-```text
-public static website
-  -> public API endpoint
-  -> reverse proxy or tunnel
-  -> private backend API
-  -> local vector index
-  -> private raw evidence corpus
-  -> local or self-hosted model runtime
-```
+The full local stack has only been tested on this baseline:
 
-The website can be hosted cheaply as static files. The backend can run on a
-desktop, workstation, home server, rented GPU box, or small private cloud
-instance. The raw evidence corpus and model runtime stay private.
+| Part | Tested baseline |
+| --- | --- |
+| CPU | AMD Ryzen 7 5700X, 8 cores / 16 threads |
+| GPU | NVIDIA GeForce GTX 1080, 8 GB VRAM |
+| RAM | 32 GB |
 
-## Minimum Practical Hardware
+The smoke-test path can run without a local model because it uses deterministic
+placeholder generation. The complete local workflow is different: running small
+models, building indexes, running evals, and especially fine-tuning are unlikely
+to work well on less hardware than the baseline above. It may still be possible
+on smaller machines, but this repo has not been tested below that floor.
+Fine-tuning on a GPU with less than 8 GB VRAM should be treated as experimental.
 
-Recommended minimum:
+## Status
 
-- 4 CPU cores.
-- 16 GB RAM.
-- 8 GB VRAM if running local generation models on GPU.
-- 20 GB free disk for models, indexes, and generated datasets.
+`v0.1.0` is a runnable template baseline, not a finished hosted product.
 
-CPU-only can work for small models and embeddings, but public latency will be
-worse. If the owner does not have suitable local hardware, use a private
-self-hosted GPU instance and keep the same API safety rules.
+Current starter stack:
 
-## Runnable Starter
+- Flask backend with `/health` and `/chat`.
+- Static frontend with role selection, answer rendering, citation chips, and a
+  source drawer.
+- Fictional sample corpus under `examples/raw-corpus/`.
+- Smoke eval harness under `examples/evals/`.
+- Deterministic placeholder generation for first-run testing.
+- Ollama adapter and environment template for local model generation.
+- Agent-oriented implementation docs, templates, and optional skills.
 
-This repository includes a minimal working reference stack. It is designed to
-run against the fictional sample corpus before any personal data is added.
+The starter retrieval path is intentionally simple keyword retrieval. Replace it
+with vector retrieval, chunking, reranking, and context packing when building a
+full RAG version.
 
-Backend smoke path:
+## Quick Start
+
+Run the backend from a clean clone:
 
 ```powershell
 cd backend
@@ -53,7 +56,7 @@ python -m app.evaluate --questions ../examples/evals/smoke-questions.jsonl
 python -m app.main
 ```
 
-Frontend smoke path:
+Run the frontend in another terminal:
 
 ```powershell
 cd frontend
@@ -66,106 +69,130 @@ npm run dev
 Open `http://127.0.0.1:5173` while the backend is running on
 `http://127.0.0.1:8788`.
 
-The default backend uses deterministic placeholder generation so the template
-can be tested without a local model. Set `RAG_GENERATION_PROVIDER=ollama` and
-the model/runtime variables in `templates/backend/.env.example` when switching
-to a real local model.
+You can also run the full local verifier:
 
-## Repository Map
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1
+```
 
-- [AGENTS.md](AGENTS.md): instructions for coding agents.
-- [docs/agent-implementation-playbook.md](docs/agent-implementation-playbook.md):
-  end-to-end build checklist.
-- [docs/implementation-blueprint.md](docs/implementation-blueprint.md):
-  complexity levels from static resume to full RAG/fine-tuned/job-fit stack.
-- [docs/personalization-intake.md](docs/personalization-intake.md): what an
-  agent should ask the owner before building.
-- [docs/minimal-resume-mode.md](docs/minimal-resume-mode.md): single Markdown
-  resume mode when a full RAG corpus is unnecessary.
-- [docs/role-prompt-routing.md](docs/role-prompt-routing.md): multi-role prompt
-  routing and role-differentiation eval guidance.
-- [docs/job-fit-feature.md](docs/job-fit-feature.md): evidence-backed job-fit
-  feature design.
-- [docs/architecture.md](docs/architecture.md): system design and deployment
-  topology.
-- [docs/api-contract.md](docs/api-contract.md): backend API shape expected by
-  the frontend.
-- [docs/corpus-curation.md](docs/corpus-curation.md): how to collect, sanitize,
-  and structure evidence.
-- [docs/dataset-synthesis.md](docs/dataset-synthesis.md): how to create
-  training and eval datasets from the corpus.
-- [docs/dataset-quality.md](docs/dataset-quality.md): dataset review,
-  validation, dedupe, and split guidance.
-- [docs/fine-tuning-local-models.md](docs/fine-tuning-local-models.md): how to
-  fine-tune small local answer models.
-- [docs/fine-tuning-best-practices.md](docs/fine-tuning-best-practices.md):
-  practical SFT/LoRA/QLoRA guidance and adoption rules.
-- [docs/model-selection.md](docs/model-selection.md): model, embedding,
-  reranker, quantization, and hardware-fit decision guidance.
-- [docs/frontend-static-site.md](docs/frontend-static-site.md): static website
-  requirements.
-- [docs/public-safety.md](docs/public-safety.md): public exposure and abuse
-  controls.
-- [docs/evaluation.md](docs/evaluation.md): quality gates and regression evals.
-- [docs/eval-creation-cookbook.md](docs/eval-creation-cookbook.md): concrete
-  eval-set design patterns and failure classification.
-- [docs/runtime-and-deployment.md](docs/runtime-and-deployment.md): runtime,
-  local run, tunnel, and static deployment patterns.
-- [docs/deployment-recipes.md](docs/deployment-recipes.md): local-only,
-  static-hosting, tunnel, VPS, GPU-host, and static-only recipes.
-- [docs/public-repo-hygiene.md](docs/public-repo-hygiene.md): release cleanup
-  checklist for public template publication.
-- [docs/vendored-skills-policy.md](docs/vendored-skills-policy.md): how to
-  treat `.codex/skills/vendor/`.
-- [docs/model-candidate-evaluation.md](docs/model-candidate-evaluation.md):
-  model bakeoff process before changing live models.
-- [IMPLEMENTATION_PROMPT.md](IMPLEMENTATION_PROMPT.md): copy/paste prompt for
-  instantiating this template with an agent.
-- [docs/agent-skills.md](docs/agent-skills.md): repo-local and vendored skills
-  for RAG, corpus, evals, model selection, dataset quality, and fine-tuning
-  workflows.
-- [templates/](templates): copyable starter files.
-  - `templates/owner-inputs/resume.md` for single-document mode.
-  - `templates/owner-inputs/intake-answers.md` for personalization intake.
-- [examples/](examples): fictional public-safe corpus and smoke evals.
-- [backend/](backend): minimal Flask API, ingestion, retrieval, placeholder
-  generation, and local eval harness.
-- [frontend/](frontend): dependency-light static frontend scaffold with
-  citation chips and a source drawer.
-- [scripts/](scripts): local verification scripts for agents before handoff.
+Use `-SkipInstall` after dependencies are already installed.
 
-## Private Inputs You Must Provide
+## What This Builds
 
-This template deliberately contains no personal corpus. Before an agent can
-implement it for a person, the owner should provide:
+```text
+static public website
+  -> narrow public API endpoint
+  -> private backend API
+  -> private evidence corpus
+  -> local index
+  -> local or self-hosted model runtime
+```
 
-- A public display name and preferred headline.
-- Public contact paths.
-- A list of projects, roles, artifacts, and links that are safe to discuss.
-- A private raw corpus folder containing sanitized evidence documents.
-- A target public domain or subdomain.
-- The chosen runtime location: local machine, home server, or private GPU host.
-- Approved models and provider terms for any cloud-assisted dataset generation.
+The website can be hosted as static files. The backend can run on a desktop,
+home server, workstation, rented GPU box, or private cloud machine. Raw source
+documents, model files, generated indexes, eval outputs, and secrets stay
+private.
 
-## Fast Start For An Implementing Agent
+## What Is Included
 
-1. Start with `docs/implementation-blueprint.md`.
-2. Run the intake in `docs/personalization-intake.md`.
-3. Choose static, single-resume, RAG, fine-tuned, or job-fit scope.
-4. Copy `templates/backend/.env.example` to the backend implementation as
-   `.env.example`, then create a private `.env`.
-5. Build or adapt a backend that implements `docs/api-contract.md`.
-6. Curate `raw-corpus/` using `docs/corpus-curation.md`, or use
-   `docs/minimal-resume-mode.md` for a single resume.
-7. Ingest the corpus into a local vector index if using RAG.
-8. Build the static frontend described in `docs/frontend-static-site.md`.
-9. Run the eval process in `docs/evaluation.md`.
-10. Add fine-tuning only after retrieval and prompt baselines are measured.
-11. Deploy using `docs/public-safety.md` and `docs/architecture.md`.
-12. Run `scripts/verify-template.ps1` or `scripts/verify-template.sh` before
-    reporting success.
+| Path | Purpose |
+| --- | --- |
+| `backend/` | Minimal Flask API, ingestion, retrieval, generation adapter, tests, and eval runner. |
+| `frontend/` | Dependency-light static site with citation chips and a source drawer. |
+| `examples/raw-corpus/` | Fictional Markdown evidence source for first-run testing. |
+| `examples/evals/` | Three-question smoke eval for citation and evidence behavior. |
+| `templates/` | Copyable env, corpus, dataset, role-prompt, and owner-input templates. |
+| `docs/` | Implementation, corpus, eval, deployment, fine-tuning, model-selection, and job-fit guides. |
+| `.codex/skills/` | Optional repo-local skills for agents that support skill discovery. |
+| `scripts/` | PowerShell and Bash verification scripts. |
 
-## Design Principle
+## Personalization Flow
 
-Every impressive answer should point to receipts. Every unsupported answer
-should admit the boundary.
+1. Read [docs/implementation-blueprint.md](docs/implementation-blueprint.md).
+2. Fill out [docs/personalization-intake.md](docs/personalization-intake.md).
+3. Decide whether you need static-only, single-document, RAG, fine-tuned, or
+   job-fit scope.
+4. Add private evidence documents to a local `raw-corpus/` folder.
+5. Use [docs/corpus-curation.md](docs/corpus-curation.md) to sanitize and
+   structure the corpus.
+6. Ingest the corpus and run the smoke eval.
+7. Replace placeholder generation with a configured local model runtime.
+8. Run evals before changing prompts, retrieval settings, or models.
+9. Deploy with the safety rules in [docs/public-safety.md](docs/public-safety.md).
+
+For a very small resume, start with
+[docs/minimal-resume-mode.md](docs/minimal-resume-mode.md) instead of building
+a vector index immediately.
+
+## Public And Private Boundary
+
+Tracked examples are fictional and public-safe. Real user material should stay
+out of the public template repo unless it has been deliberately reviewed and
+published.
+
+Keep these private or generated:
+
+- `raw-corpus/`
+- `private-corpus/`
+- backend indexes
+- eval run outputs
+- local training datasets
+- model files
+- checkpoints and adapters
+- `.env` files
+- runtime credentials
+
+The `.gitignore` is set up for that boundary. The sample corpus under
+`examples/raw-corpus/` is intentionally tracked because it is fictional.
+
+## Switching To A Real Local Model
+
+The default backend uses placeholder generation so the template can be tested
+without a GPU or model runtime. To use Ollama, copy
+`templates/backend/.env.example`, set:
+
+```text
+RAG_GENERATION_PROVIDER=ollama
+RAG_GENERATION_BASE_URL=http://127.0.0.1:11434
+RAG_FAST_MODEL_NAME=replace-with-local-fast-model
+RAG_THINKING_MODEL_NAME=replace-with-optional-slower-model
+```
+
+Then rerun ingestion, tests, and evals. Do not expose Ollama or other model
+runtime ports directly to the public internet.
+
+## Upgrade Paths
+
+The starter is deliberately small. The deeper docs describe how to add:
+
+- vector retrieval and source-aware context packing;
+- multi-role prompt routing;
+- model bakeoffs and latency checks;
+- local SFT/LoRA/QLoRA fine-tuning;
+- dataset validation;
+- job-fit analysis for pasted role descriptions;
+- static hosting plus a private API tunnel or reverse proxy.
+
+Start with measured retrieval and prompt behavior before fine-tuning. The model
+should learn answer discipline, citation behavior, and formatting; the corpus
+should remain the source of facts.
+
+## Release Checklist
+
+Before publishing a personalized implementation:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-template.ps1
+```
+
+Also check:
+
+- no private corpus files are staged;
+- no generated indexes or eval runs are staged;
+- no `.env` files, tokens, model files, or local paths are staged;
+- public claims cite public-safe source documents;
+- unsupported claims admit missing evidence.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
